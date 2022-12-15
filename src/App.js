@@ -1,4 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {
+  useState,
+  useEffect
+} from 'react';
 import PokemonList from './PokemonList'
 import axios from 'axios'
 import Pagination from './Pagination';
@@ -16,35 +19,43 @@ function App() {
     setLoading(true)
     let cancel
     axios.get(currentPageUrl, {
-      cancelToken: new axios.CancelToken((c =>cancel = c))
+      cancelToken: new axios.CancelToken((c => cancel = c))
     }).then(res => {
       setLoading(false)
       setNextPageUrl(res.data.next)
       setPrevPageUrl(res.data.previous)
       setPokemon(res.data.results.map(p => p.name))
     })
-  //this function allows clean up after
+    //this function allows clean up after
     return () => cancel()
-    
+
   }, [currentPageUrl])
 
   function gotoNextPage() {
     setCurrentPageUrl(nextPageUrl)
   }
+
   function gotoPrevPage() {
     setCurrentPageUrl(prevPageUrl)
   }
 
   if (loading) return "Loading..."
 
-  return (
-    <>
-      <PokemonList pokemon={pokemon} />
-      <Pagination
-        gotoNextPage={nextPageUrl ? gotoNextPage : null}
-        gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
-      />
-    </>
+  return ( <
+    >
+    <
+    PokemonList pokemon = {
+      pokemon
+    }
+    /> <
+    Pagination gotoNextPage = {
+      nextPageUrl ? gotoNextPage : null
+    }
+    gotoPrevPage = {
+      prevPageUrl ? gotoPrevPage : null
+    }
+    /> <
+    />
   );
 }
 
